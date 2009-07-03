@@ -26,7 +26,8 @@ Gem::Specification.new do |s|
      "test/test_helper.rb",
      "test/transformer_test.rb",
      "test/transformers/album_transformer.rb",
-     "test/transformers/track_transformer.rb"
+     "test/transformers/track_transformer.rb",
+     "transformer.gemspec"
   ]
   s.homepage = %q{http://github.com/michael/transformer}
   s.rdoc_options = ["--charset=UTF-8"]

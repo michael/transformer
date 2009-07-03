@@ -21,15 +21,15 @@ Suppose your models look like so:
 
 <pre>
 <code>
-  class Resource ; end
+class Resource ; end
 
-  class Album < Resource
-    attr_accessor :title, :artist
-  end
+class Album < Resource
+  attr_accessor :title, :artist
+end
 
-  class Track < Resource
-    attr_accessor :length, :title, :artist
-  end
+class Track < Resource
+  attr_accessor :length, :title, :artist
+end
 </code>
 </pre>
 
@@ -37,21 +37,21 @@ You can now define Transformers which turn certain objects into adequate html re
 
 <pre>
 <code>
-  class AlbumTransformer
-    include Transformer::Base
+class AlbumTransformer
+  include Transformer::Base
 
-    def self.matches?(subject)
-      subject.class == Album
-    end
+  def self.matches?(subject)
+    subject.class == Album
   end
-  
-  class TrackTransformer
-    include Transformer::Base
+end
 
-    def self.matches?(subject)
-      subject.class == Track
-    end
+class TrackTransformer
+  include Transformer::Base
+
+  def self.matches?(subject)
+    subject.class == Track
   end
+end
 </code>
 </pre>
 
@@ -67,14 +67,14 @@ At runtime you might have:
 
 <pre>
 <code>
-  @thriller = Album.new
-  @thriller.title = "Thriller"
-  @thriller.artist = "Michael Jackson"
-  
-  @confusion = Track.new
-  @confusion.title = "Confusion"
-  @confusion.artist = "New Order"
-  @confusion.duration = 5.18
+@thriller = Album.new
+@thriller.title = "Thriller"
+@thriller.artist = "Michael Jackson"
+
+@confusion = Track.new
+@confusion.title = "Confusion"
+@confusion.artist = "New Order"
+@confusion.duration = 5.18
 </code>
 </pre>
 

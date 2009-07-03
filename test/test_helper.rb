@@ -10,7 +10,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'transformer'
 
 # load transformer classes
-Dir.glob(File.join(File.dirname(__FILE__), 'transformers/*.rb')).each {|f| require f }
+# Dir.glob(File.join(File.dirname(__FILE__), 'transformers/*.rb')).each {|f| require f }
 
 class Test::Unit::TestCase
   custom_matcher :be_nil do |receiver, matcher, args|

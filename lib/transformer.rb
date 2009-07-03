@@ -22,6 +22,16 @@ module Transformer
     end
   end
   
+  def self.transformer_root
+    if Object.const_defined?('Merb')
+      Pathname(Merb.root) + 'app/transformers'
+    elsif Object.const_defined?('Rails')
+      Pathname(Rails.root) + 'app/transformers'
+    else
+      Pathname("transformers").expand_path
+    end
+  end
+  
   def self.create_transformer(subject)
     transformers = Transformer.registered_transformers.select do |transformer|
       transformer.matches?(subject)
@@ -70,3 +80,6 @@ module Transformer
     end
   end # module Base
 end # module Transformer
+
+
+Dir.glob(Transformer.transformer_root + '*.rb').each {|f| require f }
