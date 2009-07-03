@@ -1,0 +1,93 @@
+h1. Transformer
+
+Transformer comes in handy if you need to turn your ruby objects into a html representation based on templates (currently haml).
+
+h2. Installation
+
+Use GitHub RubyGems.
+
+<pre>
+<code>
+  $ gem sources -a http://gems.github.com (you only have to do this once)
+  $ sudo gem install michael-transformer
+</code>
+</pre>
+
+Or even better, stay on The Edge.
+
+h2. Getting started
+
+Suppose your models look like so:
+
+<pre>
+<code>
+  class Resource ; end
+
+  class Album < Resource
+    attr_accessor :title, :artist
+  end
+
+  class Track < Resource
+    attr_accessor :length, :title, :artist
+  end
+</code>
+</pre>
+
+You can now define Transformers which turn certain objects into adequate html representations.
+
+<pre>
+<code>
+  class AlbumTransformer
+    include Transformer::Base
+
+    def self.matches?(subject)
+      subject.class == Album
+    end
+  end
+  
+  class TrackTransformer
+    include Transformer::Base
+
+    def self.matches?(subject)
+      subject.class == Track
+    end
+  end
+</code>
+</pre>
+
+You just need to include the Transformer::Base Module and specify when a certain Transformer should be matched (self.matches?). 
+
+The Transformer module keeps track of all registered Transformers.
+
+In addition, you need to create a HAML template for each transformer. 
+From within the template you can access the subject, which you are transforming by calling subject, while the context is always the concrete Transformer instance.
+If you need helper methods or calculations just put these into your Transformer class.
+
+At runtime you might have:
+
+<pre>
+<code>
+  @thriller = Album.new
+  @thriller.title = "Thriller"
+  @thriller.artist = "Michael Jackson"
+  
+  @confusion = Track.new
+  @confusion.title = "Confusion"
+  @confusion.artist = "New Order"
+  @confusion.duration = 5.18
+</code>
+</pre>
+
+Let's do some transformation...
+<pre>
+<code>
+transformer = Transformer.create_transformer(@thriller) # returns an AlbumTransformer instance
+transformer.transform # picks the corresponding template (e.g. templates/album_transformer.haml) and renders it
+</code>
+</pre>
+
+Transformer.create_transformer picks the right transformer for a certain object based on the respective self.matches? defintion, which must be specified in each concrete Transformer class.
+
+Please also have a look at the tests.
+
+Suggestions & contributions welcome, as always ;)

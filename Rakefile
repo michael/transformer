@@ -5,10 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "transformer"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{turn your ruby objects into a html representation using transformers}
     gem.email = "ma@zive.at"
     gem.homepage = "http://github.com/michael/transformer"
     gem.authors = ["michael"]
+    gem.add_dependency('haml')
+    gem.add_dependency('extlib')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 

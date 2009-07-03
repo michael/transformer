@@ -4,4 +4,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2009 michael. See LICENSE for details.
+Copyright (c) 2009 Michael Aufreiter. See LICENSE for details.
