@@ -21,10 +21,10 @@ Gem::Specification.new do |s|
      "README.textile",
      "Rakefile",
      "VERSION",
-     "lib/transformer.rb",
+     "lib/transformers.rb",
      "test/templates/album_transformer.haml",
      "test/test_helper.rb",
-     "test/transformer_test.rb",
+     "test/transformers_test.rb",
      "test/transformers/album_transformer.rb",
      "test/transformers/track_transformer.rb",
      "transformer.gemspec"

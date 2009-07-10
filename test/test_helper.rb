@@ -1,16 +1,17 @@
 require 'rubygems'
 require 'test/unit'
 require 'shoulda'
+require 'haml'
 
 gem 'jnunemaker-matchy', '0.4.0'
 require 'matchy'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'transformer'
+require 'transformers'
 
 # load transformer classes
-# Dir.glob(File.join(File.dirname(__FILE__), 'transformers/*.rb')).each {|f| require f }
+Dir.glob(Transformers.transformer_root + '*.rb').each {|f| require f }
 
 class Test::Unit::TestCase
   custom_matcher :be_nil do |receiver, matcher, args|

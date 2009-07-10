@@ -1,5 +1,5 @@
 class AlbumTransformer
-  include Transformer::Base
+  include Transformers::Base
 
   def self.matches?(subject)
     subject.class == Album

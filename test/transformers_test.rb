@@ -1,7 +1,8 @@
 require 'test_helper'
 
 # models
-class Resource ; end
+class Resource
+end
 
 class Album < Resource
   attr_accessor :title, :artist
@@ -11,8 +12,9 @@ class Track < Resource
   attr_accessor :length, :title, :artist
 end
 
-class TransformerTest < Test::Unit::TestCase
-  context "The Transformer Class" do
+class TransformersTest < Test::Unit::TestCase
+
+  context "The Transformers module" do
     
     setup do
       @thriller = Album.new
@@ -23,24 +25,25 @@ class TransformerTest < Test::Unit::TestCase
       @confusion.title = "Confusion"
       @confusion.artist = "New Order"
       @confusion.length = 5.18
+
+      # additionally all transformers under ./transformers
+      # are loaded via test_helper
     end
     
-    should "increment Transformer.registered_transformers for each defined transformer" do
-      Transformer.should have(2).registered_transformers
+    should "automatically register transformers when Transformers::Base is included" do
+      Transformers.should have(2).registered_transformers
+      Transformers.registered_transformers.should include(AlbumTransformer)
+      Transformers.registered_transformers.should include(TrackTransformer)
     end
     
-    should "pick the right transformer" do
-      Transformer.create_transformer(@thriller).class.should == AlbumTransformer
-      Transformer.create_transformer(@confusion).class.should == TrackTransformer
-    end
-    
-    context "Tranformer instances" do
+    context "when creating new tranformer instances" do
+
       setup do
-        @album_transformer = Transformer.create_transformer(@thriller)
-        @track_transformer = Transformer.create_transformer(@confusion)
+        @album_transformer = Transformers.create_transformer(@thriller)
+        @track_transformer = Transformers.create_transformer(@confusion)
       end
       
-      should "be the right transformer" do
+      should "pick the right transformer" do
         @album_transformer.should be_kind_of(AlbumTransformer)
         @track_transformer.should be_kind_of(TrackTransformer)
       end
@@ -54,8 +57,9 @@ class TransformerTest < Test::Unit::TestCase
       end
       
       should "raise a TemplateNotFoundError if template doesn't exist" do
-        lambda { @track_transformer.transform }.should raise_error(Transformer::TemplateNotFoundError)
+        lambda { @track_transformer.transform }.should raise_error(Transformers::TemplateNotFoundError)
       end
+
     end
   end
 end
